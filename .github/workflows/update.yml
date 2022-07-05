@@ -1,0 +1,21 @@
+name: Self-update boilerplate
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: false
+          fetch-depth: 0
+
+      - name: Run self-update replacer script
+        run: sh self-update.sh
+
+      - name: Commit new files
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Self-update from next-book/boilerplate
